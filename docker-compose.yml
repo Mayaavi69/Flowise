@@ -1,0 +1,39 @@
+services:
+  flowise:
+    image: flowiseai/flowise
+    restart: always
+    environment:
+      - PORT=${PORT}
+      - HOST=${HOST}
+      - CORS_ORIGINS=${CORS_ORIGINS}
+      - IFRAME_ORIGINS=${IFRAME_ORIGINS}
+      - FLOWISE_USERNAME=${FLOWISE_USERNAME}
+      - FLOWISE_PASSWORD=${FLOWISE_PASSWORD}
+      - FLOWISE_FILE_SIZE_LIMIT=${FLOWISE_FILE_SIZE_LIMIT}
+      - DEBUG=${DEBUG}
+      - SSL_ENABLED=${SSL_ENABLED}
+      - SSL_CERT_PATH=${SSL_CERT_PATH}
+      - SSL_KEY_PATH=${SSL_KEY_PATH}
+      - SSL_CA_PATH=${SSL_CA_PATH}
+      - APIKEY_PATH=${APIKEY_PATH}
+      - SECRETKEY_PATH=${SECRETKEY_PATH}
+      - LOG_PATH=${LOG_PATH}
+      - BLOB_STORAGE_PATH=${BLOB_STORAGE_PATH}
+      - DISABLE_FLOWISE_TELEMETRY=${DISABLE_FLOWISE_TELEMETRY}
+      - DISABLED_NODES=${DISABLED_NODES}
+    ports:
+      - "${PORT}:${PORT}"
+    volumes:
+      - ~/.flowise:/root/.flowise
+      - /etc/ssl/erudites.in:/etc/ssl/erudites.in:ro # Mount SSL Certificates
+    entrypoint: /bin/sh -c "sleep 3; flowise start"
+
+
+###      #- DATABASE_PATH=${DATABASE_PATH}
+      #- DATABASE_TYPE=${DATABASE_TYPE}
+      #- DATABASE_PORT=${DATABASE_PORT}
+      #- DATABASE_HOST=${DATABASE_HOST}
+      #- DATABASE_NAME=${DATABASE_NAME}
+      #- DATABASE_USER=${DATABASE_USER}
+      #- DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      #- DATABASE_SSL=${DATABASE_SSL}
